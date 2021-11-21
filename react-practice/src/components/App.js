@@ -3,12 +3,13 @@ import axios from "axios";
 
 const todoDataUrl = "http://localhost:3100/todos";
 
-export const App = () => {
+const App = () => {
   const [todoList, setTodoList] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const resposne = await axios.get(todoDataUrl);
-      setTodoList(response);
+      const response = await axios.get(todoDataUrl);
+      setTodoList(response.data);
     };
     fetchData();
   }, []);
@@ -24,12 +25,14 @@ export const App = () => {
       <h2>TODO リスト</h2>
 
       <ul>
-        {todoList.map((todo) => {
+        {todoList.map((todo) => (
           <li key={todo.id} >
             {todo.content}({todo.done ? "完了" : "未完了"});
           </li>
-        })}
+        ))}
       </ul>
     </>
   );
 }
+
+export default App;
